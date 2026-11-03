@@ -40,19 +40,39 @@ const sampleUsers = [
 ];
 
 
-//1st validation function - use regular expresions with literal notation and test method 
+//Validation Functions - Name & Username 
+//use regular expresions with literal notation and test method 
 function validateName(name){
     return /^[a-zA-Z ]{2,}$/.test(name);
 }
 
-//2nd validation function 
 function validateUsername(username){
     return /^\w{3,12}$/.test(username);
 }
 
-//testing program from sample data 
-sampleUsers.forEach(user => {
-  console.log(`Name: "${user.name}" -> Valid? ${validateName(user.name)}`);
-  console.log(`Username: "${user.username}" -> Valid? ${validateUsername(user.username)}`);
-  console.log("-------------------");
+
+//Validation Functions for Phone Number & Promo Code 
+function validatePhone(phone){
+    return /^\d{3}[-.]?\d{3}[-.]?\d{4}$/.test(phone)
+}
+
+function validatePromoCode(promo){
+    if (!promo) return false;
+    return /^summer$/i.test(promo);
+}
+
+
+
+//testing program with sample data 
+sampleUsers.forEach((user, index) => {
+    const isPhoneValid = validatePhone(user.phone);
+    const isPromoValid = validatePromoCode(user.promoCode);
+
+    console.log(`User ${index + 1} (${user.name}):`);
+    //console.log(`Name: "${user.name}" -> Valid? ${validateName(user.name)}`);
+    console.log(`Username: "${user.username}" -> Valid? ${validateUsername(user.username)}`);
+    console.log(`Phone: "${user.phone}" -> Valid? ${isPhoneValid}`);
+    console.log(`Promo: "${user.promoCode}" -> Valid? ${isPromoValid}`);
+    console.log("-----------------------------------------");
 });
+
