@@ -32,6 +32,14 @@ In this phase, I created the formatPhoneNumber function to standardize phone num
 While .test() simply checks whether a string is valid, capturing groups and backreferences allow you to extract and manipulate individual components. Using these groups with the .replace() method lets you transform raw data into a new format. Ultimately, the conceptual difference comes down to validation versus transformation.
 
 
+Phase 4 Question
+
+How did you design your processRegistration() function? Looking back across Phases 1 through 4, how did building and verifying individual regular expressions first make assembling the final pipeline easier?
+
+The processRegistration function acted as our blueprint, leveraging previously built validation and formatting helpers to verify input data, sanitize valid entries, and return either structured success data or a detailed list of error messages. Breaking down the individual regular expressions first made it much easier to understand the underlying logic and seamlessly integrate everything into a final processing pipeline.
+
+
+
 
 
 

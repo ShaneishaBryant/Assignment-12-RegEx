@@ -52,7 +52,6 @@ function validateUsername(username){
 
 
 //Validation Functions for Phone Number & Promo Code 
-
 /*function validatePhone(phone){
     return /^\d{3}[-.]?\d{3}[-.]?\d{4}$/.test(phone)
 }*/
@@ -71,22 +70,72 @@ function formatPhoneNumber(phone){
     //check if phone string is valid using replace() method with backreferences 
     if (!phoneRegex.test(phone)){
         return null; //if not a valid phone number 
-
-        return phone.replace(phoneRegex, "($1) $2-$3");
     }
+       return phone.replace(phoneRegex, "($1) $2-$3");
 }
+
+//intake function that integrates all individual validation and formatting routines 
+function processRegistration(user){
+     const errors = [];
+
+
+    //validates required fields and push specific error messages 
+  if (!validateName(user.name)) {
+        errors.push("Invalid name.");
+    }
+    
+   if (!validateUsername(user.username)) {
+        errors.push("Invalid username.");
+    }
+
+    //validates and reformats phone number
+    const formattedPhone = formatPhoneNumber(user.phone);
+    if(formattedPhone === null){
+        errors.push("Invalid phone");
+    }
+
+    //checks if promoCode was provided 
+    const hasPromo = Boolean(user.promoCode);
+    const isPromoValid = hasPromo ? validatePromoCode(user.promoCode) : false;
+
+    if (hasPromo && !isPromoValid){
+        errors.push("Invalid promo code.");
+    }
+
+    //check if required fields are valid - return error or success data 
+    if (errors.length > 0){
+        return {
+            success: false,
+            errors: errors
+        };
+    }
+
+    return {
+        success: true,
+        data: {
+            name: user.name,
+            username: user.username,
+            phone: formattedPhone,
+            discountApplied: isPromoValid,
+        }
+    };
+    }
+
 
 
 //testing program with sample data 
 sampleUsers.forEach((user, index) => {
-    const isPhoneValid = formatPhoneNumber(user.phone);
-    const isPromoValid = validatePromoCode(user.promoCode);
-
+    const result = processRegistration(user);
+    
     console.log(`User ${index + 1} (${user.name}):`);
-    //console.log(`Name: "${user.name}" -> Valid? ${validateName(user.name)}`);
-    console.log(`Username: "${user.username}" -> Valid? ${validateUsername(user.username)}`);
-    console.log(`Phone: "${user.phone}" -> Valid? ${isPhoneValid}`);
-    console.log(`Promo: "${user.promoCode}" -> Valid? ${isPromoValid}`);
-    console.log("-----------------------------------------");
+    console.log(`  Success: ${result.success}`);
+    
+    if (result.success) {
+        console.log(`  Phone: ${result.data.phone}`);
+        console.log(`  Discount Applied: ${result.data.discountApplied}`);
+    } else {
+        console.log(`  Errors: ${result.errors.join(", ")}`);
+    }
+
 });
 
