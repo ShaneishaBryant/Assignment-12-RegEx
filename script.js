@@ -52,9 +52,10 @@ function validateUsername(username){
 
 
 //Validation Functions for Phone Number & Promo Code 
-function validatePhone(phone){
+
+/*function validatePhone(phone){
     return /^\d{3}[-.]?\d{3}[-.]?\d{4}$/.test(phone)
-}
+}*/
 
 function validatePromoCode(promo){
     if (!promo) return false;
@@ -62,10 +63,23 @@ function validatePromoCode(promo){
 }
 
 
+//formatted validation for phone numbers
+function formatPhoneNumber(phone){
+    //regex with three capturing groups 
+    const phoneRegex = /(^\d{3})[-.]?(\d{3})[-.]?(\d{4})$/;
+
+    //check if phone string is valid using replace() method with backreferences 
+    if (!phoneRegex.test(phone)){
+        return null; //if not a valid phone number 
+
+        return phone.replace(phoneRegex, "($1) $2-$3");
+    }
+}
+
 
 //testing program with sample data 
 sampleUsers.forEach((user, index) => {
-    const isPhoneValid = validatePhone(user.phone);
+    const isPhoneValid = formatPhoneNumber(user.phone);
     const isPromoValid = validatePromoCode(user.promoCode);
 
     console.log(`User ${index + 1} (${user.name}):`);

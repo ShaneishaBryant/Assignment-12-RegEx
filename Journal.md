@@ -8,6 +8,9 @@ With the start (^) and end ($) anchors force the regular expression to evaluate 
 
 
 
+
+
+
 Phase 2 Question
 
 What did you accomplish in this phase? Why is the case-insensitive flag i cleaner than converting strings with .toLowerCase() or writing alternate variations in an if statement?
@@ -15,6 +18,20 @@ What did you accomplish in this phase? Why is the case-insensitive flag i cleane
 In this phase, I create two additional validation functions that use regular expression literal notation: validatePhone - which checkes for phone numbers formatted with hypens, dots, or without separators and validatePromoCode - which checks for the promotional discount code case-insenstive. 
 
 The case-insensitive flag (/i) is cleaner because it eliminates boilerplate if statements and guarantees that all casing variations are caught automatically which is a better alternative to converting strings with .toLowerCase(). 
+
+
+
+
+
+Phase 3 Question
+
+What did you accomplish in this phase? What is the conceptual difference between testing a string with .test() and extracting/reformatting data using capturing groups and backreferences?
+
+In this phase, I created the formatPhoneNumber function to standardize phone numbers into a uniform presentation. The function accepts a string input, validates it using a regular expression with three capturing groups, and applies the .replace() method to reformat valid numbers.
+ 
+While .test() simply checks whether a string is valid, capturing groups and backreferences allow you to extract and manipulate individual components. Using these groups with the .replace() method lets you transform raw data into a new format. Ultimately, the conceptual difference comes down to validation versus transformation.
+
+
 
 
 
