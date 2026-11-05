@@ -36,7 +36,19 @@ const sampleUsers = [
     username: "fiona_g",
     phone: "555-789-0123",
     promoCode: "" // No promo code provided
-  }
+  },
+  {
+    name: "Monkey D Luffy",
+    username: "monkey@luffy",
+    phone: "555-992-0909",
+    promoCode: "Summer",
+  },
+  {
+    name: "Roronoa Zoro",
+    username: "ro_zorooftheonepiecegang",
+    phone: "349-ok4-1234",
+    promocode: ""
+  },
 ];
 
 
@@ -76,6 +88,11 @@ function formatPhoneNumber(phone){
 
 //intake function that integrates all individual validation and formatting routines 
 function processRegistration(user){
+
+    //input santization to trim whitespace accidentally typed by users
+    const cleanName = typeof user.name === "string" ? user.name.trim() : "";
+    const cleanUsername = typeof user.username === "string" ? user.username.trim() : "";
+
      const errors = [];
 
 

@@ -40,6 +40,11 @@ The processRegistration function acted as our blueprint, leveraging previously b
 
 
 
+Phase 5 Question
 
+What bugs or unexpected results did you identify while running the full test suite? If you consulted an AI tutor for review, what advice did it provide, and what did you learn about regular expressions from this exercise?
 
+The only unexpected behavior surfaced when testing an edge case with a period in the name (such as 'Dr.' or a middle initial)—the validation incorrectly flagged it as an error until the punctuation was removed. 
+
+Among the AI's recommendations (which included defensive guard clauses and configuration objects), I chose to implement input sanitization to trim accidental whitespace, as it provided the most practical solution for cleaning up user input.
 
